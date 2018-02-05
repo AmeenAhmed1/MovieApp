@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_alignParentBottom="true"
-                android:background="#f6c667"
+                android:background="#005792"
                 android:orientation="vertical">
 
                 <TextView
@@ -71,10 +71,11 @@
 
                     <TextView
                         android:id="@+id/txtRate"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1.5"/>
+                        android:text="1.5"
+                        android:textColor="#fffbcc"/>
 
                 </LinearLayout>
 

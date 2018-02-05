@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/ic_no_internet"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Can`t Load Page"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/cardview_dark_background"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No internet connection. try again when internet is available"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/retryButton"
+            android:layout_marginTop="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="retry"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

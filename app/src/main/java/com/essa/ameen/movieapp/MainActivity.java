@@ -1,5 +1,9 @@
 package com.essa.ameen.movieapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -46,45 +50,80 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        Log.i(TAG, "onCreate: ");
 
-        /*
-        ** Views referances
-         */
-        mRecyclerView = findViewById(R.id.recycleGrid);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        if(isNetworkAvailable()){
 
-        mToolBar = findViewById(R.id.toolBar);
-        mToolBar.setTitle("Top Movie");
+            setContentView(R.layout.activity_main);
+            /*
+             ** Views referances
+            */
+            mRecyclerView = findViewById(R.id.recycleGrid);
+            mRecyclerView.setHasFixedSize(true);
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        mToolBar.inflateMenu(R.menu.menu_main);
-        mToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.exitButton){
-                    finish();
+            mToolBar = findViewById(R.id.toolBar);
+            mToolBar.setTitle("Top Movie");
+
+            mToolBar.inflateMenu(R.menu.menu_main);
+            mToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId() == R.id.exitButton){
+                        finish();
+                    }
+                    return true;
                 }
-                return true;
-            }
-        });
+            });
 
 
-        //Swipe to refresh layout
-        mSwipeRefreshLayout = findViewById(R.id.ref);
+            //Swipe to refresh layout
+            mSwipeRefreshLayout = findViewById(R.id.ref);
 
-        //Get data into the layout
-        updateUI();
+            //Get data into the layout
+            updateUI();
 
-        //called if screen swaped
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                updateUI();
-            }
-        });
+            //called if screen swaped
+            mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    if(isNetworkAvailable())
+                        updateUI();
+                    else{
+                        Intent noInternetIntent = new Intent(MainActivity.this, NoInternetActivity.class);
+                        startActivity(noInternetIntent);
+                        finish();
+                    }
+                }
+            });
 
+        }else {
+            Intent noInternetIntent = new Intent(MainActivity.this, NoInternetActivity.class);
+            startActivity(noInternetIntent);
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        Log.i(TAG, "onResume: ");
+        super.onResume();
+        if(!isNetworkAvailable()){
+            Log.i(TAG, "onResume: Methods");
+            Intent noInternetIntent = new Intent(MainActivity.this, NoInternetActivity.class);
+            startActivity(noInternetIntent);
+            finish();
+        }
+    }
+
+    /*
+        ** To check if there is internet or not
+         */
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        return networkInfo != null && networkInfo.isConnected();
     }
 
 
