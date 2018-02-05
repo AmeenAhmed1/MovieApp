@@ -9,14 +9,24 @@ public class MovieListItem {
     String movie_over_view;
     String release_date;
     String image_url;
-    int movie_rate;
+    String movie_rate;
 
 
-    public MovieListItem(String movie_title, String movie_over_view, String release_date, String image_url) {
+    public MovieListItem(String movie_title, String movie_over_view,
+                         String release_date, String image_url, String movie_rate) {
         this.movie_title = movie_title;
         this.movie_over_view = movie_over_view;
         this.release_date = release_date;
         this.image_url = image_url;
+        this.movie_rate = movie_rate;
+    }
+
+    public String getMovie_rate() {
+        return movie_rate;
+    }
+
+    public void setMovie_rate(String movie_rate) {
+        this.movie_rate = movie_rate;
     }
 
     public String getImage_url() {

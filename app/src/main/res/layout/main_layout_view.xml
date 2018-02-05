@@ -36,16 +36,15 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="80dp"
                 android:layout_alignParentBottom="true"
                 android:background="#f6c667"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:orientation="vertical">
 
                 <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
                     android:id="@+id/txtMovieName"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Movie Name"
@@ -56,17 +55,28 @@
                     android:maxLines="1"
                     android:singleLine="true"/>
 
-                <TextView
-                    android:id="@+id/txtMovieReleaseDate"
-                    android:paddingLeft="10dp"
-                    android:layout_width="match_parent"
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Release Date"
-                    android:textSize="15dp"
-                    style="@style/textViewStyle"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:singleLine="true"/>
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <ImageView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="20dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/ic_star_filled"/>
+
+                    <TextView
+                        android:id="@+id/txtRate"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.5"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 

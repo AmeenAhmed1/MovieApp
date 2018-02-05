@@ -46,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         holder.txtName.setText(mItems.getMovie_title());
         //holder.txtReleaseDate.setText(mItems.getRelease_date());
-        holder.txtReleaseDate.setText(mItems.getMovie_over_view());
+        holder.txtRate.setText(mItems.getMovie_rate());
 
         //Load the image from web and load it into imageView
         Picasso.with(mContext)
@@ -71,14 +71,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txtName, txtReleaseDate;
+        TextView txtName, txtRate;
         ImageView movieImage;
         LinearLayout mLinearLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtName = itemView.findViewById(R.id.txtMovieName);
-            txtReleaseDate = itemView.findViewById(R.id.txtMovieReleaseDate);
+            txtRate = itemView.findViewById(R.id.txtRate);
             movieImage = itemView.findViewById(R.id.movieImage);
             mLinearLayout = itemView.findViewById(R.id.movieLinearLayout);
         }

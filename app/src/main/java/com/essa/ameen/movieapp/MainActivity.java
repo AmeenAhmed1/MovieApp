@@ -6,7 +6,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.essa.ameen.movieapp.adapter.MovieAdapter;
 import com.essa.ameen.movieapp.model.MovieListItem;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     //Variables
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
+    Toolbar mToolBar;
 
 
     SwipeRefreshLayout mSwipeRefreshLayout;
@@ -53,15 +56,26 @@ public class MainActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
+        mToolBar = findViewById(R.id.toolBar);
+        mToolBar.setTitle("Top Movie");
+
+        mToolBar.inflateMenu(R.menu.menu_main);
+        mToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.exitButton){
+                    finish();
+                }
+                return true;
+            }
+        });
+
+
         //Swipe to refresh layout
         mSwipeRefreshLayout = findViewById(R.id.ref);
 
         //Get data into the layout
         updateUI();
-
-        //getting data from the server
-        //new gettingData().execute();
-
 
         //called if screen swaped
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -159,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                     String overView = mJsonResult.getString("overview");
                     String date = mJsonResult.getString("release_date");
                     String image = mJsonResult.getString("poster_path");
+                    String rate = mJsonResult.getString("vote_average");
 
                     /*Log.i(TAG, "convertStreamToString: Title : " + title);
                     Log.i(TAG, "convertStreamToString: View : " + overView);
@@ -168,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Log.i(TAG, "convertStreamToString: Image url = " + finalImageUrl);
 
-                    MovieListItem x = new MovieListItem(title, overView, date, finalImageUrl);
+                    MovieListItem x = new MovieListItem(title, overView, date, finalImageUrl, rate);
                     list.add(x);
                 }
 

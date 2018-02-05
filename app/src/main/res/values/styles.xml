@@ -22,4 +22,18 @@
         <item name="android:maxHeight">16dip</item>
     </style>
 
+
+    <!-- For the title bar -->
+    <style name="toolBarTheme" parent="AlertDialog.AppCompat.Light" >
+        <item name="android:textColorPrimary">#fff</item>
+        <item name="android:textColorSecondary">#fff</item>
+    </style>
+    
+    
+    <!-- For the popup menu-->
+    <style name="popUpMenu" parent="Theme.AppCompat.Light" >
+        <item name="android:textColorPrimary">#000</item>
+        <item name="android:background">#fff</item>
+    </style>
+
 </resources>
