@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2000">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"/>
+
+    <ImageButton
+        android:id="@+id/imageBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_back"
+        android:background="@android:color/transparent"/>
+
+    <ImageView
+        android:id="@+id/imageDetail"
+        android:layout_width="150dp"
+        android:layout_height="230dp"
+        android:src="@drawable/f1"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp"
+        android:layout_marginLeft="15dp"
+        android:layout_toRightOf="@id/imageDetail">
+
+        <TextView
+            android:id="@+id/txtTitleDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Maze Runner Maze Runner Maze Runner "
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDateDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Release Date: 2-2-2222"/>
+
+
+        <TextView
+            android:id="@+id/txtRateDetail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Average rate: 6"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/txtOverViewDetail"
+        android:layout_width="335dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageDetail"
+        android:layout_alignStart="@+id/imageDetail"
+        android:layout_below="@+id/imageDetail"
+        android:layout_marginTop="32dp"
+        android:text="OverView" />
+
+</RelativeLayout>

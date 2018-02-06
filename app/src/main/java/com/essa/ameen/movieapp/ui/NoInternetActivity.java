@@ -1,4 +1,4 @@
-package com.essa.ameen.movieapp;
+package com.essa.ameen.movieapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.essa.ameen.movieapp.R;
 
 public class NoInternetActivity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class NoInternetActivity extends AppCompatActivity {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(NoInternetActivity.this, MainActivity.class);
+                            Intent intent = new Intent(NoInternetActivity.this, TopRatedActivity.class);
                             startActivity(intent);
                             NoInternetActivity.this.finish();
                         }

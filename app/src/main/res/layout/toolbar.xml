@@ -10,5 +10,4 @@
     app:theme="@style/toolBarTheme"
     app:popupTheme="@style/popUpMenu">
 
-
 </android.support.v7.widget.Toolbar>

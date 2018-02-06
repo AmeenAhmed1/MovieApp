@@ -1,4 +1,4 @@
-package com.essa.ameen.movieapp;
+package com.essa.ameen.movieapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,9 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
+import android.widget.TextView;
 
+import com.essa.ameen.movieapp.R;
 import com.essa.ameen.movieapp.adapter.MovieAdapter;
 import com.essa.ameen.movieapp.model.MovieListItem;
 
@@ -31,15 +32,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class TopRatedActivity extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "TopRatedActivity";
 
     //Variables
     RecyclerView mRecyclerView;
     RecyclerView.Adapter mAdapter;
     Toolbar mToolBar;
 
+    TextView mToolBarTextView;
 
     SwipeRefreshLayout mSwipeRefreshLayout;
 
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         if(isNetworkAvailable()){
 
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_top_rated);
             /*
              ** Views referances
             */
@@ -63,10 +65,16 @@ public class MainActivity extends AppCompatActivity {
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
+            //Toolbar referance
             mToolBar = findViewById(R.id.toolBar);
-            mToolBar.setTitle("Top Movie");
-
+            mToolBar.setTitle("Top Rated");
             mToolBar.inflateMenu(R.menu.menu_main);
+
+            //mToolBar.setNavigationIcon(R.drawable.ic_sort_icon);
+            //mToolBarTextView = mToolBar.findViewById(R.id.txtToolBarTitle);
+            //mToolBarTextView.setText("Top");
+
+            /*mToolBar.inflateMenu(R.menu.menu_main);
             mToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
@@ -75,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                     return true;
                 }
-            });
+            });*/
 
 
             //Swipe to refresh layout
@@ -91,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                     if(isNetworkAvailable())
                         updateUI();
                     else{
-                        Intent noInternetIntent = new Intent(MainActivity.this, NoInternetActivity.class);
+                        Intent noInternetIntent = new Intent(TopRatedActivity.this, NoInternetActivity.class);
                         startActivity(noInternetIntent);
                         finish();
                     }
@@ -99,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }else {
-            Intent noInternetIntent = new Intent(MainActivity.this, NoInternetActivity.class);
+            Intent noInternetIntent = new Intent(TopRatedActivity.this, NoInternetActivity.class);
             startActivity(noInternetIntent);
         }
     }
@@ -110,15 +118,15 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         if(!isNetworkAvailable()){
             Log.i(TAG, "onResume: Methods");
-            Intent noInternetIntent = new Intent(MainActivity.this, NoInternetActivity.class);
+            Intent noInternetIntent = new Intent(TopRatedActivity.this, NoInternetActivity.class);
             startActivity(noInternetIntent);
             finish();
         }
     }
 
     /*
-        ** To check if there is internet or not
-         */
+    ** To check if there is internet or not
+     */
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -144,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         private static final String API_KEY = "cf2a0e44ebd0f153e44c7a54007b3f1c";
-        private static final String URL_REQUEST = "https://api.themoviedb.org/3/movie/popular?api_key="+API_KEY;
+        private static final String URL_REQUEST = "https://api.themoviedb.org/3/movie/top_rated?api_key="+API_KEY;
 
         @Override
         protected Void doInBackground(Void... voids) {
@@ -208,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
                     //Json formating
                     JSONObject mJsonResult = mJsonArray.getJSONObject(i);
-                    String title = mJsonResult.getString("original_title");
+                    String title = mJsonResult.getString("title");
                     String overView = mJsonResult.getString("overview");
                     String date = mJsonResult.getString("release_date");
                     String image = mJsonResult.getString("poster_path");
