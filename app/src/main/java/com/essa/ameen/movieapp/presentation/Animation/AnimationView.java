@@ -1,7 +1,8 @@
-package com.essa.ameen.movieapp.Animation;
+package com.essa.ameen.movieapp.presentation.Animation;
 
 import android.animation.ObjectAnimator;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Created by ameen on 06-Feb-18.
@@ -17,7 +18,7 @@ public class AnimationView {
         this.goDown = goDown;
 
         ObjectAnimator mObjectAnimator = ObjectAnimator.ofFloat(holder.itemView,
-                                            "translationY", goDown ? 250 : -250, 0);
+                "translationY", goDown ? 250 : -250, 0);
 
         mObjectAnimator.setDuration(1500);
         mObjectAnimator.start();
