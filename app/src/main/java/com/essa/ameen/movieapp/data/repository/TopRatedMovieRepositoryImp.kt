@@ -1,5 +1,6 @@
 package com.essa.ameen.movieapp.data.repository
 
+import com.essa.ameen.movieapp.BuildConfig
 import com.essa.ameen.movieapp.core.wrapper.ResponseWrapper
 import com.essa.ameen.movieapp.data.datasource.MoviesApi
 import com.essa.ameen.movieapp.data.model.TopRatedMoviesResponse
@@ -12,7 +13,7 @@ class TopRatedMovieRepositoryImp @Inject constructor(private val api: MoviesApi)
     override suspend fun getTopRatedMovies(): ResponseWrapper<TopRatedMoviesResponse> {
 
         return try {
-            val response = api.getTopRatedMoves("")
+            val response = api.getTopRatedMoves(BuildConfig.MOVIE_DB_API_KEY)
             if (response.isSuccessful) {
                 response.body()?.let {
                     return ResponseWrapper.Success(it)
@@ -25,7 +26,6 @@ class TopRatedMovieRepositoryImp @Inject constructor(private val api: MoviesApi)
             ResponseWrapper.Fail("")
         }
 
-        //return api.getTopRatedMoves("cf2a0e44ebd0f153e44c7a54007b3f1c").body()!!
     }
 
 }

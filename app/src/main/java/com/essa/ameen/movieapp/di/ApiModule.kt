@@ -1,5 +1,6 @@
 package com.essa.ameen.movieapp.di
 
+import com.essa.ameen.movieapp.BuildConfig
 import com.essa.ameen.movieapp.data.datasource.MoviesApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
@@ -16,8 +17,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
-
-    private const val BASE_URL = "https://api.themoviedb.org/3/"
 
     @Singleton
     @Provides
@@ -42,7 +41,7 @@ object ApiModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .client(okHttpClient)
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()
