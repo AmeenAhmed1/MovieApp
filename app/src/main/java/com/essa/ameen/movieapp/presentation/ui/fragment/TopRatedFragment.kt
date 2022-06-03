@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.essa.ameen.movieapp.core.wrapper.ResponseWrapper
 import com.essa.ameen.movieapp.databinding.FragmentTopRatedBinding
 import com.essa.ameen.movieapp.presentation.adapter.TopRatedMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,12 @@ class TopRatedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         topRatedViewModel.topRatedMoviesList.observe(viewLifecycleOwner) {
-            recAdapter.diff.submitList(it.results)
+            when (it) {
+                is ResponseWrapper.Success -> recAdapter.diff.submitList(it.value.results)
+                is ResponseWrapper.Fail -> {
+                    TODO("Handle Error && Failure")
+                }
+            }
         }
     }
 
