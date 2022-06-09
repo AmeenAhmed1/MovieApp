@@ -9,7 +9,8 @@ interface MoviesApi {
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMoves(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String,
+        @Query("page") pageNumber: Int = 1
     ): Response<TopRatedMoviesResponse>
 
 }

@@ -8,11 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import com.essa.ameen.movieapp.core.wrapper.ResponseWrapper
 import com.essa.ameen.movieapp.databinding.FragmentTopRatedBinding
 import com.essa.ameen.movieapp.presentation.adapter.TopRatedMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
 class TopRatedFragment : Fragment() {
@@ -42,23 +41,30 @@ class TopRatedFragment : Fragment() {
     }
 
     private fun initObservers() {
+
         lifecycleScope.launchWhenCreated {
-            topRatedViewModel.topRatedMoviesList.collect() {
-                when (it) {
-                    is ResponseWrapper.Success -> recAdapter.diff.submitList(it.value.results)
-                    is ResponseWrapper.Fail -> {
-                        TODO("Handle Error && Failure")
-                    }
-                }
+            topRatedViewModel.getTopRatedMovies().collectLatest { pagingData ->
+                recAdapter.submitData(pagingData)
             }
         }
+
+//        lifecycleScope.launchWhenCreated {
+//            topRatedViewModel.topRatedMoviesList.collect() {
+//                when (it) {
+//                    is ResponseWrapper.Success -> recAdapter.diff.submitList(it.value.results)
+//                    is ResponseWrapper.Fail -> {
+//                        TODO("Handle Error && Failure")
+//                    }
+//                }
+//            }
+//        }
     }
 
     private fun initRecyclerView() {
 
         if (!this::recAdapter.isInitialized) {
 
-            recAdapter = TopRatedMovieAdapter(requireContext())
+            recAdapter = TopRatedMovieAdapter()
 
             binding.topMovieRecycler.apply {
                 adapter = recAdapter
