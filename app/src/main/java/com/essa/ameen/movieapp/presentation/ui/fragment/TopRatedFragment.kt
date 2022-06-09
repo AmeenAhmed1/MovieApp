@@ -6,11 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.essa.ameen.movieapp.core.wrapper.ResponseWrapper
 import com.essa.ameen.movieapp.databinding.FragmentTopRatedBinding
 import com.essa.ameen.movieapp.presentation.adapter.TopRatedMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class TopRatedFragment : Fragment() {
@@ -34,39 +36,45 @@ class TopRatedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        topRatedViewModel.topRatedMoviesList.observe(viewLifecycleOwner) {
-            when (it) {
-                is ResponseWrapper.Success -> recAdapter.diff.submitList(it.value.results)
-                is ResponseWrapper.Fail -> {
-                    TODO("Handle Error && Failure")
+        initObservers()
+        initRecyclerView()
+
+    }
+
+    private fun initObservers() {
+        lifecycleScope.launchWhenCreated {
+            topRatedViewModel.topRatedMoviesList.collect() {
+                when (it) {
+                    is ResponseWrapper.Success -> recAdapter.diff.submitList(it.value.results)
+                    is ResponseWrapper.Fail -> {
+                        TODO("Handle Error && Failure")
+                    }
                 }
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        if (!this::recAdapter.isInitialized)
-            initRecyclerView()
-        else
-            topRatedViewModel.getTopRatedMovies()
-    }
-
     private fun initRecyclerView() {
 
-        recAdapter = TopRatedMovieAdapter(requireContext())
+        if (!this::recAdapter.isInitialized) {
 
-        binding.topMovieRecycler.apply {
-            adapter = recAdapter
-            layoutManager = GridLayoutManager(requireContext(), 2)
-        }
+            recAdapter = TopRatedMovieAdapter(requireContext())
 
-        topRatedViewModel.getTopRatedMovies()
+            binding.topMovieRecycler.apply {
+                adapter = recAdapter
+                layoutManager = GridLayoutManager(requireContext(), 2)
+            }
 
-        recAdapter.onItemClicked {
-            TODO("Selected Item Go To Details.")
-        }
+            topRatedViewModel.getTopRatedMovies()
+
+            recAdapter.onItemClicked {
+                TODO("Selected Item Go To Details.")
+            }
+
+        } else
+            topRatedViewModel.getTopRatedMovies()
+
+
     }
 
 }
