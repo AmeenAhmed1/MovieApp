@@ -1,6 +1,6 @@
 package com.essa.ameen.movieapp.di
 
-import com.essa.ameen.movieapp.data.datasource.MoviesApi
+import com.essa.ameen.movieapp.data.remote.MoviesApi
 import com.essa.ameen.movieapp.data.repository.TopRatedMovieRepositoryImp
 import com.essa.ameen.movieapp.domain.repository.TopRatedMovieRepository
 import dagger.Module

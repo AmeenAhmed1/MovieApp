@@ -1,31 +1,23 @@
 package com.essa.ameen.movieapp.data.repository
 
-import com.essa.ameen.movieapp.BuildConfig
-import com.essa.ameen.movieapp.core.wrapper.ResponseWrapper
-import com.essa.ameen.movieapp.data.datasource.MoviesApi
-import com.essa.ameen.movieapp.data.model.TopRatedMoviesResponse
+import androidx.paging.Pager
+import androidx.paging.PagingData
+import com.essa.ameen.movieapp.data.datasource.PAGE_CONFIG
+import com.essa.ameen.movieapp.data.datasource.TopRatedMoviesSource
+import com.essa.ameen.movieapp.data.model.MovieModel
+import com.essa.ameen.movieapp.data.remote.MoviesApi
 import com.essa.ameen.movieapp.domain.repository.TopRatedMovieRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class TopRatedMovieRepositoryImp @Inject constructor(private val api: MoviesApi) :
     TopRatedMovieRepository {
 
-    override suspend fun getTopRatedMovies(): ResponseWrapper<TopRatedMoviesResponse> {
-
-        return try {
-            val response = api.getTopRatedMoves(BuildConfig.MOVIE_DB_API_KEY)
-            if (response.isSuccessful) {
-                response.body()?.let {
-                    return ResponseWrapper.Success(it)
-                } ?: ResponseWrapper.Fail("")
-            } else {
-                ResponseWrapper.Fail(response.errorBody().toString())
-            }
-
-        } catch (e: Exception) {
-            ResponseWrapper.Fail("")
-        }
-
+    override fun getTopRatedMovies(): Flow<PagingData<MovieModel>> {
+        return Pager(
+            config = PAGE_CONFIG,
+            pagingSourceFactory = { TopRatedMoviesSource(api) }
+        ).flow
     }
 
 }

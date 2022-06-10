@@ -1,8 +1,9 @@
 package com.essa.ameen.movieapp.domain.repository
 
-import com.essa.ameen.movieapp.core.wrapper.ResponseWrapper
-import com.essa.ameen.movieapp.data.model.TopRatedMoviesResponse
+import androidx.paging.PagingData
+import com.essa.ameen.movieapp.data.model.MovieModel
+import kotlinx.coroutines.flow.Flow
 
 interface TopRatedMovieRepository {
-    suspend fun getTopRatedMovies(): ResponseWrapper<TopRatedMoviesResponse>
+    fun getTopRatedMovies(): Flow<PagingData<MovieModel>>
 }

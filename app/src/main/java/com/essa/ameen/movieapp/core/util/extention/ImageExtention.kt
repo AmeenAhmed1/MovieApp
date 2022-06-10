@@ -5,7 +5,7 @@ import com.bumptech.glide.Glide
 import com.essa.ameen.movieapp.R
 
 fun ImageView.loadImage(url: String) {
-    Glide.with(this.context).load("https://image.tmdb.org/t/p/original/$url")
+    Glide.with(this.context).load(IMAGE_BASE_URL + url)
         .placeholder(R.drawable.ic_launcher_foreground)
         .error(R.drawable.ic_launcher_background)
         .into(this)
