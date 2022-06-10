@@ -1,7 +1,7 @@
 package com.essa.ameen.movieapp.di
 
-import com.essa.ameen.movieapp.BuildConfig
-import com.essa.ameen.movieapp.data.datasource.MoviesApi
+import com.essa.ameen.movieapp.core.util.BASE_URL
+import com.essa.ameen.movieapp.data.remote.MoviesApi
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -41,7 +41,7 @@ object ApiModule {
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create())
-        .baseUrl(BuildConfig.BASE_URL)
+        .baseUrl(BASE_URL)
         .client(okHttpClient)
         .addCallAdapterFactory(CoroutineCallAdapterFactory())
         .build()

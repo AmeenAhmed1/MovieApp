@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.essa.ameen.movieapp.databinding.FragmentTopRatedBinding
 import com.essa.ameen.movieapp.presentation.adapter.TopRatedMovieAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 
 @AndroidEntryPoint
@@ -35,8 +36,8 @@ class TopRatedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initObservers()
         initRecyclerView()
+        initObservers()
 
     }
 

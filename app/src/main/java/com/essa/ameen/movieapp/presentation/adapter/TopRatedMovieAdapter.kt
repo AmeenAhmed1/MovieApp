@@ -9,7 +9,7 @@ import com.essa.ameen.movieapp.data.model.MovieModel
 import com.essa.ameen.movieapp.databinding.ItemMovieBinding
 
 class TopRatedMovieAdapter :
-    PagingDataAdapter<MovieModel, TopRatedMovieAdapter.MyViewHolder>(TopRatedMovieDiffCallBack()) {
+    PagingDataAdapter<MovieModel, TopRatedMovieAdapter.MyViewHolder>(TopRatedMoviesDiff) {
 
     inner class MyViewHolder(
         val binding: ItemMovieBinding
