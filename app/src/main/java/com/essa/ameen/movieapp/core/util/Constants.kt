@@ -8,6 +8,7 @@ const val BASE_URL = BuildConfig.BASE_URL
 const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original/"
 const val API_KEY = BuildConfig.MOVIE_DB_API_KEY
 
+const val RECYCLER_VIEW_GRID_SPAN_SIZE = 2
 
 //EndPoints Reference.
 object ApiEndPoints {
